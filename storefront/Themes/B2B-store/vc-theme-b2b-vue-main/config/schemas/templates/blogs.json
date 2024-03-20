@@ -1,0 +1,41 @@
+{
+  "name": "Blog",
+  "previewRule": "{{item.settings.permalink}}",
+  "request": [
+    {
+      "url": "/api/pagebuilder/search?storeId={{location.params.storeId}}&type=blogs&folder=news",
+      "method": "get",
+      "cacheable": true,
+      "response": {
+        "selector": "Object.keys(this.response).map(x => ({ ...this.item, ...this.response[x], key: x, request: undefined })).reduce((acc, x) => ({ ...acc, [x.key]: x }), {})",
+        "isArray": true
+      }
+    }
+  ],
+  "type": "blogs",
+  "sections": [
+    "call-to-action",
+    "call-to-action-with-image",
+    "features",
+    "slider",
+    "login",
+    "image",
+    "page-header",
+    "products",
+    "text",
+    "title",
+    "demo-product-list"
+  ],
+  "settings": [
+    {
+      "id": "header",
+      "label": "Page Header / H1",
+      "type": "string"
+    },
+    {
+      "id": "hideBreadcrumbs",
+      "label": "Hide Breadcrumbs",
+      "type": "checkbox"
+    }
+  ]
+}

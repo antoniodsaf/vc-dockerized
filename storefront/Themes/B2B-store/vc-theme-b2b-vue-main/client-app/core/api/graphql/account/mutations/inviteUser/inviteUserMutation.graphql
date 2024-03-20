@@ -1,0 +1,10 @@
+mutation InviteUser($command: InputInviteUserType!) {
+  inviteUser(command: $command) {
+    succeeded
+    errors {
+      code
+      description
+      parameter
+    }
+  }
+}

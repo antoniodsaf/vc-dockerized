@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "eslint.useESLintClass": true,
+  "files.associations": {
+    "*.scss": "postcss"
+  },
+  "i18n-ally.localesPaths": ["locales"],
+  "i18n-ally.keystyle": "nested",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "virto-commerce",
+    "projectKey": "VirtoCommerce_vc-theme-b2b-vue"
+  }
+}

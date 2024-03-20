@@ -1,0 +1,10 @@
+{
+  "icon": "image",
+  "settings": [
+    {
+      "id": "image",
+      "type": "images",
+      "multiple": false
+    }
+  ]
+}

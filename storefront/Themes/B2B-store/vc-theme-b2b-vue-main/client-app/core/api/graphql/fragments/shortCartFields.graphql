@@ -1,0 +1,18 @@
+#import "./validationErrorFields.graphql"
+
+fragment shortCartFields on CartType {
+  id
+  itemsQuantity
+  items {
+    id
+    sku
+    quantity
+    productId
+    extendedPrice {
+      amount
+    }
+  }
+  validationErrors(ruleSet: "*") {
+    ...validationErrorFields
+  }
+}

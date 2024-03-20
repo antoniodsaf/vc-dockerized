@@ -1,0 +1,7 @@
+#import "../../../fragments/fullOrderFields.graphql"
+
+mutation CreateOrderFromCart($command: InputCreateOrderFromCartType!) {
+  createOrderFromCart(command: $command) {
+    ...fullOrderFields
+  }
+}

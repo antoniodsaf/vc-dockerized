@@ -1,0 +1,49 @@
+#import "./moneyFields.graphql"
+#import "./propertyFields.graphql"
+
+fragment orderLineItemFields on OrderLineItemType {
+  id
+  imageUrl
+  isGift
+  name
+  productId
+  productType
+  product {
+    id
+    brandName
+    slug
+    masterVariation {
+      id
+      slug
+    }
+    properties {
+      ...propertyFields
+    }
+  }
+  quantity
+  sku
+  extendedPrice {
+    ...moneyFields
+  }
+  price {
+    ...moneyFields
+  }
+  placedPrice {
+    ...moneyFields
+  }
+  taxTotal {
+    ...moneyFields
+  }
+  discountTotal {
+    ...moneyFields
+  }
+  outerId
+  vendor {
+    id
+    name
+    rating {
+      value
+      reviewCount
+    }
+  }
+}

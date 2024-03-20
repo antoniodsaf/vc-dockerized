@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "yzhang.markdown-all-in-one",
+    "shd101wyy.markdown-preview-enhanced",
+    "csstools.postcss",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin",
+    "lokalise.i18n-ally",
+    "graphql.vscode-graphql",
+    "graphql.vscode-graphql-syntax",
+    "graphql.vscode-graphql-execution"
+  ],
+  "unwantedRecommendations": [
+    "octref.vetur"
+  ]
+}

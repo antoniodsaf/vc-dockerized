@@ -1,0 +1,129 @@
+<template>
+  <div class="relative">
+    <nav
+      ref="bottomHeader"
+      class="relative z-[2] flex min-h-[5.5rem] items-center gap-x-5 bg-[color:var(--color-header-bottom-bg)] px-5 py-3 xl:px-12"
+    >
+      <router-link to="/">
+        <VcImage :src="$cfg.logo_image" :alt="$context.storeName" class="h-8 xl:h-[2.8rem]" lazy />
+      </router-link>
+
+      <template v-if="organization">
+        <div class="hidden h-6 w-0.5 bg-[color:var(--color-primary)] xl:block"></div>
+
+        <div
+          class="hidden max-w-[9rem] text-base font-medium italic leading-[18px] text-[color:var(--color-header-bottom-text)] xl:line-clamp-2"
+        >
+          {{ organization?.name }}
+        </div>
+      </template>
+
+      <!-- Catalog button -->
+      <a
+        ref="showCatalogMenuButton"
+        :href="catalogLink"
+        type="button"
+        class="flex select-none items-center rounded border-2 border-primary px-[0.8rem] py-[0.55rem] text-sm text-[color:var(--color-header-bottom-link)] hover:text-[color:var(--color-header-bottom-link-hover)]"
+        @click="toggleCatalogDropdown"
+      >
+        <span
+          v-t="'shared.layout.header.bottom_header.catalog_menu_button'"
+          class="font-bold uppercase tracking-wide"
+        />
+
+        <VcIcon
+          v-if="catalogMenuItems.length"
+          :name="catalogButtonIcon"
+          size="xs"
+          class="ml-3 text-[color:var(--color-primary)]"
+        />
+      </a>
+
+      <SearchBar />
+
+      <ul class="-mx-2 flex items-center">
+        <li v-for="item in desktopMainMenuItems" :key="item.id">
+          <BottomHeaderLink v-if="item.id === 'compare'" :link="item" :count="productsIds.length">
+            {{ item.title }}
+          </BottomHeaderLink>
+
+          <BottomHeaderLink v-else-if="item.id === 'cart'" :link="item" :count="cart?.itemsQuantity">
+            {{ item.title }}
+          </BottomHeaderLink>
+
+          <BottomHeaderLink v-else :link="item">
+            {{ item.title }}
+          </BottomHeaderLink>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Catalog dropdown -->
+    <transition
+      v-if="catalogMenuItems.length"
+      enter-from-class="-translate-y-full"
+      leave-to-class="-translate-y-full"
+      enter-active-class="will-change-transform"
+      leave-active-class="will-change-transform"
+    >
+      <div
+        v-if="catalogMenuVisible"
+        ref="catalogMenuElement"
+        class="absolute w-full overflow-y-auto shadow-md transition-transform duration-200"
+        :style="catalogMenuStyle"
+      >
+        <CatalogMenu :items="catalogMenuItems" @select="catalogMenuVisible = false" />
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { onClickOutside, syncRefs, useElementBounding, useScrollLock } from "@vueuse/core";
+import { computed, ref, shallowRef } from "vue";
+import { useRouter } from "vue-router";
+import { useNavigations } from "@/core/composables";
+import { useUser } from "@/shared/account";
+import { useCart } from "@/shared/cart";
+import { useCompareProducts } from "@/shared/compare";
+import { SearchBar } from "@/shared/layout";
+import BottomHeaderLink from "./bottom-header-link.vue";
+import CatalogMenu from "./catalog-menu.vue";
+import type { StyleValue } from "vue";
+
+const router = useRouter();
+const { organization } = useUser();
+const { cart } = useCart();
+const { catalogMenuItems, desktopMainMenuItems } = useNavigations();
+const { productsIds } = useCompareProducts();
+
+const bottomHeader = ref<HTMLElement | null>(null);
+const catalogMenuElement = shallowRef<HTMLElement | null>(null);
+const showCatalogMenuButton = shallowRef<HTMLElement | null>(null);
+const catalogMenuVisible = ref(false);
+
+const { bottom } = useElementBounding(bottomHeader);
+
+const catalogLink = router.resolve({ name: "Catalog" }).fullPath;
+const catalogButtonIcon = computed<string>(() => (catalogMenuVisible.value ? "chevron-up" : "chevron-down"));
+const catalogMenuStyle = computed<StyleValue | undefined>(() =>
+  bottom.value ? { maxHeight: `calc(100vh - ${bottom.value}px)` } : undefined,
+);
+
+onClickOutside(
+  catalogMenuElement,
+  () => {
+    catalogMenuVisible.value = false;
+  },
+  { ignore: [showCatalogMenuButton] },
+);
+
+syncRefs(catalogMenuVisible, useScrollLock(document.body));
+
+function toggleCatalogDropdown(event: Event) {
+  if (catalogMenuItems.value.length) {
+    event.preventDefault();
+    catalogMenuVisible.value = !catalogMenuVisible.value;
+  }
+}
+</script>

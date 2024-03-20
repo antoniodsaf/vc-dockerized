@@ -1,0 +1,78 @@
+<template>
+  <router-link :to="to" class="icon flex items-center p-2.5">
+    <div class="mr-2.5 h-5 w-5"></div>
+    <span class="text-13 font-bold text-gray-500">{{ text }}</span>
+  </router-link>
+</template>
+
+<script setup lang="ts">
+import type { PropType } from "vue";
+import type { RouteLocationRaw } from "vue-router";
+
+defineProps({
+  text: {
+    type: String,
+    required: true,
+  },
+
+  to: {
+    type: [String, Object] as PropType<RouteLocationRaw>,
+    required: true,
+  },
+});
+</script>
+
+<style scoped>
+/* Icons */
+.icon > div {
+  background-color: #808080;
+}
+.dashboard-icon > div {
+  mask: url(/static/images/dashboard/icons/dashboard.svg) no-repeat center / contain;
+}
+.profile-icon > div {
+  mask: url(/static/images/dashboard/icons/profile.svg) no-repeat center / contain;
+}
+.pass-icon > div {
+  mask: url(/static/images/dashboard/icons/pass.svg) no-repeat center / contain;
+}
+.addresses-icon > div {
+  mask: url(/static/images/dashboard/icons/building.svg) no-repeat center / contain;
+}
+
+.orders-icon > div {
+  mask: url(/static/images/dashboard/icons/orders.svg) no-repeat center / contain;
+}
+.list-icon > div {
+  mask: url(/static/images/dashboard/icons/list.svg) no-repeat center / contain;
+}
+.checkout-icon > div {
+  mask: url(/static/images/dashboard/icons/check-circle.svg) no-repeat center / contain;
+}
+.company-icon > div {
+  mask: url(/static/images/dashboard/icons/company.svg) no-repeat center / contain;
+}
+.company-members-icon > div {
+  mask: url(/static/images/dashboard/icons/members.svg) no-repeat center / contain;
+}
+
+.quotes-icon > div {
+  mask: url(/static/images/dashboard/icons/quotes.svg) no-repeat center / contain;
+}
+
+/* Active/hover state styles */
+.router-link-active > div,
+.icon:hover > div {
+  background-color: var(--color-primary);
+}
+.icon:hover span {
+  color: #4b5563;
+}
+.router-link-active.icon {
+  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+.router-link-active span {
+  color: #1f222c;
+}
+</style>

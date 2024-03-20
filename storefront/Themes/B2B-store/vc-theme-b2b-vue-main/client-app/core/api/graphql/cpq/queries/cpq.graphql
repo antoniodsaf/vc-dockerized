@@ -1,0 +1,6 @@
+query getCPQCOnfig($productLine: String!) {
+  cpqConfigure(productLine: $productLine) {
+    loginSuccess
+    url
+  }
+}

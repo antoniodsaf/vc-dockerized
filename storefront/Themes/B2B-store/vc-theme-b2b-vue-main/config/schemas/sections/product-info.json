@@ -1,0 +1,7 @@
+{
+  "name": "Product",
+  "icon": "smartphone",
+  "displayField": "name",
+  "blocks": ["image", "text", "product-properties", "product-description", "product-variations", "product-assets"],
+  "settings": []
+}

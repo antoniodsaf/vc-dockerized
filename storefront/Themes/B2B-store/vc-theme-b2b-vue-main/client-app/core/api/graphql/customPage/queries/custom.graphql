@@ -1,0 +1,5 @@
+query getBalance($storeId: String!) {
+  mybalance(storeId: $storeId) {
+    balance
+  }
+}

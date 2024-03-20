@@ -1,0 +1,122 @@
+#import "../../../fragments/propertyFields.graphql"
+#import "../../../fragments/availabilityDataFields.graphql"
+#import "../../../fragments/moneyFields.graphql"
+
+query SearchProducts(
+  $storeId: String!
+  $userId: String!
+  $currencyCode: String!
+  $cultureName: String
+  $filter: String
+  $after: String
+  $first: Int
+  $sort: String
+  $query: String
+  $fuzzy: Boolean
+  $fuzzyLevel: Int
+  $productIds: [String]
+  $withFacets: Boolean!
+  $withImages: Boolean!
+) {
+  products(
+    storeId: $storeId
+    userId: $userId
+    after: $after
+    first: $first
+    filter: $filter
+    sort: $sort
+    currencyCode: $currencyCode
+    cultureName: $cultureName
+    query: $query
+    fuzzy: $fuzzy
+    fuzzyLevel: $fuzzyLevel
+    productIds: $productIds
+  ) {
+    totalCount
+    items {
+      name
+      id
+      code
+      minQuantity
+      maxQuantity
+      inWishlist
+      productType
+      vendor {
+        id
+        name
+      }
+      variations {
+        id
+        price {
+          list {
+            ...moneyFields
+          }
+          actual {
+            ...moneyFields
+          }
+        }
+      }
+      hasVariations
+      slug
+      outline
+      imgSrc
+      images @include(if: $withImages) {
+        url
+      }
+      description(type: "QuickReview") {
+        content
+      }
+      availabilityData {
+        ...availabilityDataFields
+      }
+      price {
+        actual {
+          ...moneyFields
+        }
+        discountAmount {
+          amount
+          formattedAmount
+        }
+        sale {
+          amount
+          formattedAmount
+        }
+        list {
+          ...moneyFields
+        }
+        discountPercent
+      }
+      minVariationPrice {
+        actual {
+          ...moneyFields
+        }
+      }
+      properties {
+        ...propertyFields
+      }
+    }
+    term_facets @include(if: $withFacets) {
+      name
+      label
+      terms {
+        label
+        term
+        count
+        isSelected
+      }
+    }
+    range_facets @include(if: $withFacets) {
+      name
+      label
+      ranges {
+        label
+        count
+        from
+        to
+        includeFrom
+        includeTo
+        isSelected
+      }
+    }
+  }
+}

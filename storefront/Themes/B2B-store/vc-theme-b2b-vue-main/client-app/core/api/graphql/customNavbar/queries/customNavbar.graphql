@@ -1,0 +1,12 @@
+query getCategories($storeId: String!) {
+  categories(storeId: $storeId) {
+    items {
+      path
+      name
+      properties {
+        name
+        value
+      }
+    }
+  }
+}

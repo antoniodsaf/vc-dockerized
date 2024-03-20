@@ -1,0 +1,19 @@
+{
+  "name": "Image",
+  "icon": "image",
+  "displayField": "name",
+  "settings": [
+    {
+      "id": "image",
+      "type": "images",
+      "multiple": false,
+      "tab": "Content"
+    },
+    {
+      "id": "alttext",
+      "label": "Alternative Text",
+      "type": "string",
+      "tab": "Content"
+    }
+  ]
+}

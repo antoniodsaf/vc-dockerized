@@ -1,0 +1,10 @@
+#import "./currencyFields.graphql"
+
+fragment moneyFields on MoneyType {
+  amount
+  formattedAmount
+  formattedAmountWithoutCurrency
+  currency {
+    ...currencyFields
+  }
+}

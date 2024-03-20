@@ -1,0 +1,52 @@
+{
+  "name": "Call to Action with Image",
+  "icon": "article",
+  "displayField": "name",
+  "includeShared": ["buttons"],
+  "settings": [
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "string",
+      "tab": "Content"
+    },
+    {
+      "id": "subtitle",
+      "label": "Subtitle",
+      "type": "string",
+      "multiline": true,
+      "tab": "Content"
+    },
+    {
+      "id": "image",
+      "type": "images",
+      "label": "Image",
+      "multiple": false,
+      "tab": "Content"
+    },
+    {
+      "id": "imageDescription",
+      "label": "Image description",
+      "info": "Transforms to the \"alt\" attribute for images. Which is crucial for accessibility, aiding the visually impaired, and enhancing SEO",
+      "type": "string",
+      "multiline": true,
+      "tab": "Content"
+    },
+    {
+      "id": "imagePosition",
+      "type": "select",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right (top)"
+        },
+        {
+          "value": "left",
+          "label": "Left (bottom)"
+        }
+      ],
+      "tab": "Content"
+    }
+  ]
+}

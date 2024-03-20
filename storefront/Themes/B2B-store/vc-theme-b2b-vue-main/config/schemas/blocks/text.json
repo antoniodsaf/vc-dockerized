@@ -1,0 +1,20 @@
+{
+  "icon": "text_fields",
+  "settings": [
+    {
+      "id": "header",
+      "label": "Header",
+      "type": "string"
+    },
+    {
+      "id": "name",
+      "label": "Block name",
+      "type": "string"
+    },
+    {
+      "id": "text",
+      "label": "Content",
+      "type": "text"
+    }
+  ]
+}

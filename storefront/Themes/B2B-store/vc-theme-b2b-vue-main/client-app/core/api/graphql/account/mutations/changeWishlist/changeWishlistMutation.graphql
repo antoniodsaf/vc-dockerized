@@ -1,0 +1,13 @@
+#import "../../../fragments/wishlistLineItemFields.graphql"
+
+mutation ChangeWishlist($command: InputChangeWishlistType!) {
+  changeWishlist(command: $command) {
+    id
+    name
+    description
+    scope
+    items {
+      ...wishlistLineItemFields
+    }
+  }
+}

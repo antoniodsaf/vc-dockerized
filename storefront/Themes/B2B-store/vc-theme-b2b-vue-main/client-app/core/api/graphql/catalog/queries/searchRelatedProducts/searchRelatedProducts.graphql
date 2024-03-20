@@ -1,0 +1,71 @@
+query SearchRelatedProducts(
+  $storeId: String!
+  $currencyCode: String!
+  $cultureName: String
+  $id: String!
+  $after: String
+  $first: Int
+  $group: String
+  $query: String
+) {
+  product(storeId: $storeId, id: $id, currencyCode: $currencyCode, cultureName: $cultureName) {
+    associations(after: $after, first: $first, group: $group, query: $query) {
+      items {
+        product {
+          name
+          id
+          code
+          slug
+          imgSrc
+          images {
+            url
+          }
+          vendor {
+            id
+            name
+          }
+          hasVariations
+          variations {
+            id
+          }
+          minVariationPrice {
+            list {
+              amount
+              formattedAmount
+            }
+            actual {
+              amount
+              formattedAmount
+            }
+          }
+          availabilityData {
+            availableQuantity
+            isAvailable
+            isInStock
+          }
+          minQuantity
+          maxQuantity
+          inWishlist
+          price {
+            actual {
+              amount
+              formattedAmount
+            }
+            list {
+              amount
+              formattedAmount
+            }
+            sale {
+              amount
+              formattedAmount
+            }
+            discountAmount {
+              amount
+              formattedAmount
+            }
+          }
+        }
+      }
+    }
+  }
+}

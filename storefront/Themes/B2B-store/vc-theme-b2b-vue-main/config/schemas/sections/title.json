@@ -1,0 +1,15 @@
+{
+  "name": "Title",
+  "icon": "article",
+  "displayField": "name",
+  "includeShared": ["title"],
+  "settings": [
+    {
+      "id": "subtitle",
+      "label": "Subtitle",
+      "type": "string",
+      "sort": 30,
+      "multiline": true
+    }
+  ]
+}
