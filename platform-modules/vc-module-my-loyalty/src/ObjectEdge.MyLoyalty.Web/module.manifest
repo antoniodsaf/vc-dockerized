@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+  <id>ObjectEdge.MyLoyalty</id>
+  <version>3.400.0</version>
+  <version-tag></version-tag>
+
+  <platformVersion>3.414.13</platformVersion>
+  <dependencies>
+    <!--<dependency id="VirtoCommerce.Core" version="3.400.2" />-->
+  </dependencies>
+
+  <title>ObjectEdge MyLoyalty module</title>
+  <description>ObjectEdge MyLoyalty module</description>
+
+  <authors>
+    <author>Akash Yadav</author>
+  </authors>
+  <owners>
+    <owner>ObjectEdge</owner>
+  </owners>
+
+  <projectUrl>https://github.com/ObjectEdge/vc-module-my-loyalty</projectUrl>
+  <iconUrl>Modules/$(ObjectEdge.MyLoyalty)/Content/logo.png</iconUrl>
+  <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+  <assemblyFile>ObjectEdge.MyLoyalty.Web.dll</assemblyFile>
+  <moduleType>ObjectEdge.MyLoyalty.Web.Module, ObjectEdge.MyLoyalty.Web</moduleType>
+
+  <releaseNotes>First version.</releaseNotes>
+  <copyright>Copyright © 2024 ObjectEdge. All rights reserved</copyright>
+  <tags>extension module</tags>
+  <useFullTypeNameInSwagger>false</useFullTypeNameInSwagger>
+</module>
