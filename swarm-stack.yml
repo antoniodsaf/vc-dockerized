@@ -17,11 +17,7 @@ services:
       - virto
 
   platform-web:
-    build: 
-        context: .
-        dockerfile: Platform.Dockerfile
-        args:
-          platform_arg: ${PLATFORM_VERSION}
+    image: ghcr.io/virtocommerce/platform:3.815.0
     ports:
       - "${DOCKER_PLATFORM_PORT:-8090}:80"
     environment:
@@ -35,6 +31,8 @@ services:
      - Search:Provider=${SEARCH_PROVIDER}
      - Search:Scope=platformindex
      - Search:ElasticSearch:Server=http://elastic:9200
+     - ASPNETCORE_HTTP_PORTS=80
+     - ASPNETCORE_URLS=http://+:80;
     depends_on:
       - vc-db
       - elastic
@@ -50,11 +48,7 @@ services:
     restart: unless-stopped
 
   storefront-web:
-    build: 
-        context: .
-        dockerfile: Storefront.Dockerfile
-        args:
-          platform_arg: ${STOREFRONT_VERSION}
+    image: ghcr.io/virtocommerce/storefront:6.40.0-master-0380cf97
     ports:
       - "${DOCKER_STOREFRONT_PORT:-8091}:80"
     environment:
@@ -63,11 +57,13 @@ services:
      - ConnectionStrings:ContentConnectionString=provider=LocalStorage;rootPath=/volumes/cms-content/
      - VirtoCommerce:Endpoint:Url=${PLATFORM_ENDPOINT_URL:-http://localhost:8090}
      - VirtoCommerce:Endpoint:Password=${PLATFORM_ENDPOINT_PASSWORD:-store}
+     - ASPNETCORE_HTTP_PORTS=80
+     - ASPNETCORE_URLS=http://+:80;
     depends_on:
       - vc-db
       - elastic
       - redis
-    entrypoint: ["/wait-for-it.sh", "vc-db:1433", "-t", "120", "--", "dotnet", "VirtoCommerce.Storefront.dll"]
+    entrypoint: ["dotnet", "VirtoCommerce.Storefront.dll"]
     volumes:
       - ${CMS_CONTENT_VOLUME}:/volumes/cms-content
     networks:
