@@ -132,6 +132,8 @@ const listener = ref((event: any) => {
   successData.status = "SUCCESS";
   successData.error = errorData;
   iframe?.postMessage(successData, event.origin);
+  window.removeEventListener("message", listener.value);
+  console.log("::: listener removed");
   closePopup("poc");
 });
 
