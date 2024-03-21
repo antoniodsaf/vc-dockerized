@@ -117,7 +117,7 @@ const listener = ref((event: any) => {
     errorPayload.status = "ERROR";
     errorPayload.error = errorElement;
     /* eslint-disable  @typescript-eslint/no-explicit-any */
-    var errorContent: any = {};
+    const errorContent: any = {};
     errorContent.catalogRefId = "Data Error";
     errorContent.errorMsg = data || "Configuration data not available";
     errorPayload.error.push(errorContent);
@@ -128,7 +128,7 @@ const listener = ref((event: any) => {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   const errorData: any = [];
   /* eslint-disable  @typescript-eslint/no-explicit-any */
-  var successData: any = {};
+  const successData: any = {};
   successData.status = "SUCCESS";
   successData.error = errorData;
   iframe?.postMessage(successData, event.origin);
@@ -144,7 +144,7 @@ const onConfigure = async () => {
     });
   }
   window.addEventListener("message", listener.value);
-  console.log(result);
+  console.log("::: listener added", result);
 
   openPopup({
     component: Modal,
@@ -154,7 +154,6 @@ const onConfigure = async () => {
     },
     id: "poc",
   });
-  window.postMessage(`${props?.product?.code}`);
   loading.value = false;
 };
 const notifications = useNotifications();
