@@ -3,7 +3,7 @@
     <!-- Top footer -->
     <div
       v-if="!compact"
-      class="hidden bg-[color:var(--color-footer-top-bg)] text-[color:var(--color-footer-top-text)] print:!hidden md:block"
+      class="hidden bg-[color:#282527] text-[color:var(--color-footer-top-text)] print:!hidden md:block"
     >
       <div class="container mx-auto grid grid-cols-2 gap-4 p-12 lg:grid-cols-4 xl:grid-cols-5">
         <!-- Logo column -->

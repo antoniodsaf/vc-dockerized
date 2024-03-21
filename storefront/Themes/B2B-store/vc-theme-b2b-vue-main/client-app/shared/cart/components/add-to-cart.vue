@@ -94,160 +94,68 @@ const cpqConfig: Ref<{
     url: string;
   };
 } | null> = ref(null);
-const { openPopup } = usePopup();
+const { openPopup, closePopup } = usePopup();
 watchEffect(() => {
   console.log(configure.value);
   configure.value = props.product.properties.find((e) => e.name === "Externally_Configurable_SKU") ?? null;
 });
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-const listener = ref((e: any) => {
-  if (`${e.data}` === `${props?.product?.id}`) {
-    console.log("data", e.data);
-    onAddToCart({
-      messageType: "Configuration_Details",
-      quantity: "1",
-      catalogRefId: "Automatic Panel",
-      externalPrice: "290.0",
-      price: "290.0",
-      currencyCode: "null",
-      configurationId: "142961321",
-      configXML: "{{configXML}}",
-      childItems: [
-        {
-          quantity: 1,
-          isModel: true,
-          id: "BOM_automaticPanelSelect",
-          parentId: "",
-          fields: {
-            _price_unit_price_each: "0.0",
-          },
-          explodedQuantity: 1,
-          currencyCode: "USD",
-          modelPath: "instaTec:electricalEquipment:automaticPanel",
-          sequenceIndex: 0,
-          conditionIndex: 0,
-          children: [
-            {
-              quantity: 1,
-              isModel: false,
-              id: "BOM_EBPA001",
-              parentId: "",
-              fields: {
-                _price_unit_price_each: "100.0",
-              },
-              explodedQuantity: 1,
-              configurablePrice: 100,
-              sequenceIndex: 0,
-              conditionIndex: 0,
-              children: [],
-              itemPrice: 100,
-              unconfiguredBomVarname: "EBPA001",
-              unconfiguredPartNumber: "EBPA001",
-              catalogRefId: "EBPA001",
-            },
-            {
-              quantity: 1,
-              isModel: false,
-              id: "BOM_EBPD001",
-              parentId: "",
-              fields: {
-                _price_unit_price_each: "50.0",
-              },
-              explodedQuantity: 1,
-              configurablePrice: 50,
-              sequenceIndex: 0,
-              conditionIndex: 0,
-              children: [],
-              itemPrice: 50,
-              unconfiguredBomVarname: "EBPD001",
-              unconfiguredPartNumber: "EBPD001",
-              catalogRefId: "EBPD001",
-            },
-            {
-              quantity: 1,
-              isModel: false,
-              id: "BOM_EBFB001",
-              parentId: "",
-              fields: {
-                _price_unit_price_each: "10.0",
-              },
-              explodedQuantity: 1,
-              configurablePrice: 10,
-              sequenceIndex: 0,
-              conditionIndex: 0,
-              children: [],
-              itemPrice: 10,
-              unconfiguredBomVarname: "EBFB001",
-              unconfiguredPartNumber: "EBFB001",
-              catalogRefId: "EBFB001",
-            },
-            {
-              quantity: 1,
-              isModel: false,
-              id: "BOM_EBCB001",
-              parentId: "",
-              fields: {
-                _price_unit_price_each: "50.0",
-              },
-              explodedQuantity: 1,
-              configurablePrice: 50,
-              sequenceIndex: 0,
-              conditionIndex: 0,
-              children: [],
-              itemPrice: 50,
-              unconfiguredBomVarname: "EBCB001",
-              unconfiguredPartNumber: "EBCB001",
-              catalogRefId: "EBCB001",
-            },
-            {
-              quantity: 1,
-              isModel: false,
-              id: "BOM_EBSD001",
-              parentId: "",
-              fields: {
-                _price_unit_price_each: "80.0",
-              },
-              explodedQuantity: 1,
-              configurablePrice: 80,
-              sequenceIndex: 0,
-              conditionIndex: 0,
-              children: [],
-              itemPrice: 80,
-              unconfiguredBomVarname: "EBSD001",
-              unconfiguredPartNumber: "EBSD001",
-              catalogRefId: "EBSD001",
-            },
-          ],
-          catalogRefId: "automaticPanelSelect",
-        },
-      ],
-    });
+const listener = ref((event: any) => {
+  console.log("data", event.data);
+  const key = event.message ? "message" : "data";
+  const data = event[key];
+  if (event.origin !== "https://objectedgeinc.bigmachines.com") {
+    alert("Invalid Domain");
+    return;
   }
-});
-onMounted(() => {
-  if (props.product.properties.find((e) => e.name === "Externally_Configurable_SKU")?.value)
-    window.addEventListener("message", listener.value);
-});
-onUnmounted(() => {
-  if (props.product.properties.find((e) => e.name === "Externally_Configurable_SKU")?.value)
-    window.removeEventListener("message", listener.value);
+  const iframe = (document.getElementById("virto-poc-iframe") as HTMLIFrameElement)?.contentWindow;
+  if (!data || /^error/i.test(data)) {
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    const errorElement: any = [];
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    const errorPayload: any = {};
+    errorPayload.status = "ERROR";
+    errorPayload.error = errorElement;
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    var errorContent: any = {};
+    errorContent.catalogRefId = "Data Error";
+    errorContent.errorMsg = data || "Configuration data not available";
+    errorPayload.error.push(errorContent);
+    iframe?.postMessage(errorPayload, event.origin);
+    return;
+  }
+  onAddToCart(JSON.parse(data));
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  const errorData: any = [];
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  var successData: any = {};
+  successData.status = "SUCCESS";
+  successData.error = errorData;
+  iframe?.postMessage(successData, event.origin);
+  closePopup("poc");
 });
 
 const onConfigure = async () => {
+  loading.value = true;
   let result = null;
   if (!cpqConfig.value) {
     result = await getCPQConfig({
       productLine: props.product.properties.find((e) => e.name === "Product_Line")?.value,
     });
   }
+  window.addEventListener("message", listener.value);
   console.log(result);
+
   openPopup({
     component: Modal,
     props: {
       iframeURL: result?.cpqConfigure.url,
+      listener: listener.value,
     },
+    id: "poc",
   });
-  window.postMessage(`${props?.product?.id}`);
+  window.postMessage(`${props?.product?.code}`);
+  loading.value = false;
 };
 const notifications = useNotifications();
 
@@ -363,19 +271,22 @@ async function onChange() {
 }
 async function onAddToCart(data: ConfigurationDetails) {
   loading.value = true;
+  if (!getLineItem(cart.value?.items)) {
+    const inputQuantity = enteredQuantity.value || minQty.value;
+    const { configXML, childItems, ...configurationData } = data;
+    configXML;
+    const updatedCart = await addToCart(props.product.id!, inputQuantity, [
+      { name: "configurationId", value: data.configurationId },
+      { name: "configurationData", value: JSON.stringify(configurationData) },
+      { name: "childOptions", value: JSON.stringify(childItems) },
+    ]);
 
-  const inputQuantity = enteredQuantity.value || minQty.value;
-  const { configXML, childItems, ...configurationData } = data;
-  configXML;
-  const updatedCart = await addToCart(props.product.id!, inputQuantity, [
-    { name: "configurationId", value: data.configurationId },
-    { name: "configurationData", value: JSON.stringify(configurationData) },
-    { name: "childOptions", value: JSON.stringify(childItems) },
-  ]);
-
-  const lineItem = clone(getLineItem(updatedCart?.items));
-  if (lineItem) {
-    emit("update:lineItem", lineItem);
+    const lineItem = clone(getLineItem(updatedCart?.items));
+    if (lineItem) {
+      emit("update:lineItem", lineItem);
+    }
+  } else {
+    alert("The configured product is already in cart.");
   }
 
   loading.value = false;
