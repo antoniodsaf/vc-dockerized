@@ -7,7 +7,7 @@ steps:
       - 'pipefail'
       - '-c'
       - |-
-        gcloud compute ssh $_MACHINE --zone=$_DEPLOY_REGION --project $PROJECT_ID --command="pwd && ./update-storefront.sh $_STORE $_THEME"
+        gcloud compute ssh $_MACHINE --zone=$_DEPLOY_REGION --project $PROJECT_ID --command="./update-storefront.sh $_STORE $_THEME"
 
 options:
   substitutionOption: ALLOW_LOOSE
