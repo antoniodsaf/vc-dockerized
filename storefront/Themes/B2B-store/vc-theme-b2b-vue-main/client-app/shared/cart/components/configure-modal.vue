@@ -17,5 +17,8 @@ interface IProps {
   listener: any;
 }
 const props = defineProps<IProps>();
-const onClose = () => window.removeEventListener("message", props.listener);
+const onClose = () => {
+  console.log("::: listener removed");
+  window.removeEventListener("message", props.listener);
+};
 </script>
