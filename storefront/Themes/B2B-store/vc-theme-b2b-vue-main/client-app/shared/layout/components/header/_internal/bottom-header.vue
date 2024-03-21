@@ -28,15 +28,10 @@
       >
         <span
           v-t="'shared.layout.header.bottom_header.catalog_menu_button'"
-          class="font-bold uppercase tracking-wide"
+          class="font-bold uppercase tracking-wide text-[color:#022C49]"
         />
 
-        <VcIcon
-          v-if="catalogMenuItems.length"
-          :name="catalogButtonIcon"
-          size="xs"
-          class="ml-3 text-[color:var(--color-primary)]"
-        />
+        <VcIcon v-if="catalogMenuItems.length" :name="catalogButtonIcon" size="xs" class="ml-3 text-[color:#022C49]" />
       </a>
 
       <SearchBar />
