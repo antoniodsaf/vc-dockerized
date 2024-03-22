@@ -1,0 +1,37 @@
+steps:
+  - id: Build virto module
+    name: mcr.microsoft.com/dotnet/sdk:8.0.203
+    entrypoint: dotnet
+    args: ['build']
+    dir: platform-modules/$_MODULE_ROOT_PATH
+  - id: Push compiled artifacts to server
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    dir: platform-modules/$_MODULE_ROOT_PATH/src/$_MODULE_WEB_FOLDER
+    args:
+      - '-eEuo'
+      - 'pipefail'
+      - '-c'
+      - |-
+        gcloud compute scp --recurse . virto-commerce:/tmp/$_FINAL_MODULE_NAME/ --zone $_DEPLOY_REGION --project $PROJECT_ID
+  - id: Deploy virto module
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args:
+      - '-eEuo'
+      - 'pipefail'
+      - '-c'
+      - |-
+        gcloud compute ssh $_MACHINE --zone=$_DEPLOY_REGION --project $PROJECT_ID --command="./update-module.sh $_FINAL_MODULE_NAME"
+
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _MACHINE: virto-commerce
+  _DEPLOY_REGION: us-central1-a
+  _MODULE_ROOT_PATH: vc-module-my-loyalty
+  _MODULE_WEB_FOLDER: ObjectEdge.MyLoyalty.Web
+  _FINAL_MODULE_NAME: ObjectEdge.MyLoyalty
+tags:
+  - oe-build-deploy
+timeout: 1200s
