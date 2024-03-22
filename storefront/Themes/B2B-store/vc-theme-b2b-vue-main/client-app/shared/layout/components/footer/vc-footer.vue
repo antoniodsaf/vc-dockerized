@@ -5,12 +5,9 @@
       v-if="!compact"
       class="hidden bg-[color:#282527] text-[color:var(--color-footer-top-text)] print:!hidden md:block"
     >
-      <div class="container mx-auto grid grid-cols-2 gap-4 p-12 lg:grid-cols-4 xl:grid-cols-5">
-        <!-- Logo column -->
-        <div class="hidden xl:block">
-          <VcImage :src="$cfg.logo_inverted_image" :alt="$context.storeName" class="h-9" lazy />
-        </div>
-
+      <div
+        class="container mx-auto grid grid-cols-1 gap-4 p-12 justify-items-baseline lg:grid-cols-3 xl:grid-cols-4 lg:justify-items-center"
+      >
         <!-- Column 1 -->
         <div>
           <div
