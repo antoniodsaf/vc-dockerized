@@ -105,7 +105,6 @@ const listener = ref((event: any) => {
   const key = event.message ? "message" : "data";
   const data = event[key];
   if (event.origin !== "https://objectedgeinc.bigmachines.com") {
-    alert("Invalid Domain");
     return;
   }
   const iframe = (document.getElementById("virto-poc-iframe") as HTMLIFrameElement)?.contentWindow;
