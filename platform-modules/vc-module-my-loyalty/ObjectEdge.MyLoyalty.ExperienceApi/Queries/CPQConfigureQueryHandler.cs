@@ -102,7 +102,7 @@ namespace ObjectEdge.MyLoyalty.ExperienceApi.Queries
                 }
 
                 // Build CPQ punchout URL // Replace with actual request data
-                var url = connection.BuildCpqPunchoutUrl(sessionId);
+                var url = connection.BuildCpqPunchoutUrl(sessionId, request);
 
                 // Construct JSON response
                 var response = new CPQConfigureAggregate
