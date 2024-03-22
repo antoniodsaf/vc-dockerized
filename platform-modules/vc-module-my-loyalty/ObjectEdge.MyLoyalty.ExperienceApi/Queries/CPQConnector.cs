@@ -89,7 +89,7 @@ namespace ObjectEdge.MyLoyalty.ExperienceApi.Queries
             }
         }
 
-        public string BuildCpqPunchoutUrl(string sessionId)
+        public string BuildCpqPunchoutUrl(string sessionId, CPQConfigureQuery request)
         {// Check for null before accessing properties
 
             // Set actual values (replace with your logic)
@@ -103,9 +103,9 @@ namespace ObjectEdge.MyLoyalty.ExperienceApi.Queries
                     { "username", _config["username"] ?? "" },
                     { "sso", "true" },
                     { "sessionId", sessionId },
-                    { "segment", "instaTec" },
-                    { "product_line", "electricalEquipment" },
-                    { "model", "automaticPanel" },
+                    { "segment", request?.Segment ?? ""},
+                    { "product_line", request?.ProductLine ?? "" },
+                    { "model", request?.Model ?? "" },
                     { "_bm_session_locale", "en" },
                     { "_bm_session_currency", "USD" },
                     { "_from_partner", "true" }
