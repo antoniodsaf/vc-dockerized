@@ -13,7 +13,7 @@ steps:
       - 'pipefail'
       - '-c'
       - |-
-        gcloud compute scp --recurse . virto-commerce:/tmp/$_FINAL_MODULE_NAME/ --zone $_DEPLOY_REGION --project $PROJECT_ID
+        gcloud compute scp --recurse * virto-commerce:/tmp/$_FINAL_MODULE_NAME/ --zone $_DEPLOY_REGION --project $PROJECT_ID
   - id: Deploy virto module
     name: gcr.io/cloud-builders/gcloud
     entrypoint: 'bash'
