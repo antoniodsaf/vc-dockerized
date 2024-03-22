@@ -13,6 +13,7 @@ steps:
       - 'pipefail'
       - '-c'
       - |-
+        gcloud compute ssh $_MACHINE --zone=$_DEPLOY_REGION --project $PROJECT_ID --command="mkdir -p /tmp/$_FINAL_MODULE_NAME/"
         gcloud compute scp --recurse * virto-commerce:/tmp/$_FINAL_MODULE_NAME/ --zone $_DEPLOY_REGION --project $PROJECT_ID
   - id: Deploy virto module
     name: gcr.io/cloud-builders/gcloud
