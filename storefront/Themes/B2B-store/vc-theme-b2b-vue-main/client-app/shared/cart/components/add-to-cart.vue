@@ -142,6 +142,8 @@ const onConfigure = async () => {
   if (!cpqConfig.value) {
     result = await getCPQConfig({
       productLine: props.product.properties.find((e) => e.name === "Product_Line")?.value,
+      model: props.product.properties.find((e) => e.name === "Model")?.value,
+      segment: props.product.properties.find((e) => e.name === "Product_Family")?.value,
     });
   }
   window.addEventListener("message", listener.value);

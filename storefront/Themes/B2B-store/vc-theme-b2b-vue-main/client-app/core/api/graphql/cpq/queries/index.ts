@@ -1,7 +1,7 @@
 import { graphqlClient } from "../../client";
 import cpqCOnfigQueryDocument from "./cpq.graphql";
 
-export async function getCPQConfig(payload: { productLine: string }): Promise<{
+export async function getCPQConfig(payload: { productLine: string; model: string; segment: string }): Promise<{
   cpqConfigure: {
     loginSuccess: boolean;
     url: string;
