@@ -1,3 +1,6 @@
+.env
+swarm-stack.yml
+
 # volumes folder (docker will persist the data here)
 .volumes/
 
