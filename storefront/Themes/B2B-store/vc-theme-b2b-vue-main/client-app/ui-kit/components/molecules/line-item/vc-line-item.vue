@@ -88,7 +88,7 @@
         <div class="flex-col justify-center min-w-[270px]">
           <VcImage
             :class="'vc-line-item__img childimage' + index + childProp?.id"
-            :src="images?.value?.[index]"
+            :src="images?.[index]"
             :alt="childProp?.id"
             size-suffix="sm"
             lazy
@@ -188,12 +188,6 @@ onMounted(async () => {
         console.log("setting:", products?.value?.[0]?.imgSrc, products, keyword);
         images.value[index] = products?.value?.[0]?.imgSrc ?? "";
         titles.value[index] = products?.value?.[0]?.name ?? "";
-        [...document.getElementsByClassName("childimage" + index + keyword)]?.forEach((e) =>
-          e.setAttribute("src", images.value[index]),
-        );
-        [...document.getElementsByClassName("childtitle" + index + keyword)]?.forEach((e) => {
-          e.innerHTML = titles.value[index];
-        });
       });
     }),
   );

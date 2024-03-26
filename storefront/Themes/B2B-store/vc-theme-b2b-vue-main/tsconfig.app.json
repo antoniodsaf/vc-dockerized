@@ -9,10 +9,10 @@
     "client-app/**/__tests__/*",
     "client-app/**/*.(test|spec).*",
     "storybook-static",
-    "client-app/ui-kit/components/molecules/line-items/vc-line-items.vue",
-    "client-app/shared/account/components/order-line-items.vue",
-    "/client-app/shared/wishlists/components/wishlist-line-items.vue",
-    "/client-app/ui-kit/components/molecules/line-items/vc-line-items.vue"
+    // "client-app/ui-kit/components/molecules/line-items/vc-line-items.vue",
+    // "client-app/shared/account/components/order-line-items.vue",
+    "/client-app/shared/wishlists/components/wishlist-line-items.vue"
+    // "/client-app/ui-kit/components/molecules/line-items/vc-line-items.vue"
   ],
   "compilerOptions": {
     "composite": true,
