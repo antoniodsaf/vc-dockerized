@@ -70,7 +70,7 @@
 import { toTypedSchema } from "@vee-validate/yup";
 import { clone } from "lodash";
 import { useField } from "vee-validate";
-import { computed, onMounted, onUnmounted, ref, shallowRef, watchEffect, type Ref } from "vue";
+import { computed, ref, shallowRef, type Ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useErrorsTranslator, useGoogleAnalytics } from "@/core/composables";
 import { ValidationErrorObjectType } from "@/core/enums";
@@ -87,7 +87,9 @@ import Modal from "./configure-modal.vue";
 const emit = defineEmits<IEmits>();
 
 const props = defineProps<IProps>();
-const configure: Ref<Product["properties"][0] | null> = ref(null);
+const configure: Ref<Product["properties"][0] | null> = ref(
+  props.product.properties.find((e) => e.name === "Externally_Configurable_SKU") ?? null,
+);
 const cpqConfig: Ref<{
   cpqConfigure: {
     loginSuccess: boolean;
@@ -95,10 +97,6 @@ const cpqConfig: Ref<{
   };
 } | null> = ref(null);
 const { openPopup, closePopup } = usePopup();
-watchEffect(() => {
-  console.log(configure.value);
-  configure.value = props.product.properties.find((e) => e.name === "Externally_Configurable_SKU") ?? null;
-});
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const listener = ref((event: any) => {
   console.log("data", event.data);
