@@ -1,0 +1,21 @@
+steps:
+  - id: Build/deploy storefront
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args:
+      - '-eEuo'
+      - 'pipefail'
+      - '-c'
+      - |-
+        gcloud compute ssh $_MACHINE --zone=$_DEPLOY_REGION --project $PROJECT_ID --command="./update-storefront.sh $_STORE $_THEME"
+
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _MACHINE: virto-commerce
+  _DEPLOY_REGION: us-central1-a
+  _STORE: B2B-store
+  _THEME: vc-theme-b2b-vue-main
+tags:
+  - oe-build-deploy
+timeout: 1200s

@@ -42,7 +42,7 @@ services:
       - ${MODULES_VOLUME}:/opt/virtocommerce/platform/modules
       - ${APP_DATA_MODULES}:/opt/virtocommerce/platform/app_data/modules
       - ${CMS_CONTENT_VOLUME}:/opt/virtocommerce/platform/wwwroot/cms-content
-      - ${ASSETS_VOLUME}:/opt/virtocommerce/platform/wwwroot/assets      
+      - ${ASSETS_VOLUME}:/opt/virtocommerce/platform/wwwroot/assets
     networks:
       - virto
     restart: unless-stopped

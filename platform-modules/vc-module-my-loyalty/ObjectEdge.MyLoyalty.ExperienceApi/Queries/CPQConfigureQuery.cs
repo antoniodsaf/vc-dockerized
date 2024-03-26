@@ -16,8 +16,8 @@ namespace ObjectEdge.MyLoyalty.ExperienceApi.Queries
         public string? Model { get; set; }
         public string? UserId { get; set; }
 
-        public string? ProductLine { get; set; }
-        public string? Segment { get; set; }
+        public  string? ProductLine { get; set; }
+        public  string? Segment { get; set; }
 
         //model: automaticPanel
         //product_line: electricalEquipment
@@ -25,19 +25,20 @@ namespace ObjectEdge.MyLoyalty.ExperienceApi.Queries
 
         public override IEnumerable<QueryArgument> GetArguments()
         {
-            yield return Argument<StringGraphType>(nameof(Model));
+            yield return Argument<NonNullGraphType<StringGraphType>>(nameof(Model));
             yield return Argument<StringGraphType>(nameof(UserId));
-            yield return Argument<StringGraphType>(nameof(ProductLine));
-            yield return Argument<StringGraphType>(nameof(Segment));
+            yield return Argument<NonNullGraphType<StringGraphType>>(nameof(ProductLine));
+            yield return Argument<NonNullGraphType<StringGraphType>>(nameof(Segment));
         }
 
         public override void Map(IResolveFieldContext context)
         {
             Model = context.GetArgument<string>(nameof(Model));
-            UserId = context.GetArgument<string>(nameof(UserId));
-            ProductLine = context.GetArgument<string>(nameof(ProductLine));
-            Segment = context.GetArgument<string>(nameof(Segment));
-
+            UserId = context?.GetArgument<string>(nameof(UserId));
+            ProductLine = context?.GetArgument<string>(nameof(ProductLine));
+            Segment = context?.GetArgument<string>(nameof(Segment));
         }
     }
+
+   
 }

@@ -1,5 +1,5 @@
-query getCPQCOnfig($productLine: String!) {
-  cpqConfigure(productLine: $productLine) {
+query getCPQCOnfig($productLine: String!, $model: String!, $segment: String!) {
+  cpqConfigure(productLine: $productLine, model: $model, segment: $segment) {
     loginSuccess
     url
   }
