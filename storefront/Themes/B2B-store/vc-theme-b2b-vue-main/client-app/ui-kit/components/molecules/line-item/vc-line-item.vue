@@ -94,7 +94,7 @@
             lazy
           />
           <VcProperty label="Name" :class="'childtitle' + index + childProp?.id">
-            {{ titles?.value?.[index] }}
+            {{ titles?.[index] }}
           </VcProperty>
         </div>
 
