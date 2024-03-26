@@ -93,9 +93,7 @@
             size-suffix="sm"
             lazy
           />
-          <VcProperty label="Name" :class="'childtitle' + index + childProp?.id">
-            {{ titles?.[index] }}
-          </VcProperty>
+          <VcProperty :label="titles?.[index]" />
         </div>
 
         <div class="me-28">
