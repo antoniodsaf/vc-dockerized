@@ -80,7 +80,7 @@
       </div>
     </div>
     <div
-      class="vc-line-item__main ps-16"
+      class="vc-line-item__main px-16 justify-between"
       v-for="(childProp, index) in childOptions?.[0]?.children"
       :key="childProp?.id"
     >
@@ -96,7 +96,7 @@
           <VcProperty :label="titles?.[index]" />
         </div>
 
-        <div class="me-28">
+        <div>
           <VcProperty label="CatalogRefId">
             {{ childProp?.catalogRefId }}
           </VcProperty>
@@ -107,10 +107,10 @@
           <VcProperty label="SKU ID">
             {{ childProp?.id }}
           </VcProperty>
+          <VcProperty label="Quantity">
+            {{ childProp?.quantity }}
+          </VcProperty>
         </div>
-        <VcProperty label="Quantity">
-          {{ childProp?.quantity }}
-        </VcProperty>
       </div>
     </div>
 
